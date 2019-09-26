@@ -116,17 +116,6 @@ class Dashboard extends Component {
         date = formatDate(date)
 
 
-        const learning_languages = [
-            {
-                language: 'japanese',
-                level: 'Intermediate'
-            },
-            {
-                language: 'german',
-                level: 'Intermediate'
-            },
-        ]
-
         const { profile, loading } = this.props.profile
 
         const format_birth_date = new Date(profile.birth_date)

@@ -103,7 +103,7 @@ class PostFeed extends Component {
                 <div className="posts-feed-container">
                     <div className="primary-container">
                         <section className="info-container">
-                            <h5>Hello, {name}. You can make a post post this page.</h5>
+                            <h5>Hello, {name}. You can make a post this page.</h5>
                             <p className="text-muted">
                                 Ask questions about any travels you have coming up, or simply say "Hello!".
                             </p>

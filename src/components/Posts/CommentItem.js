@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { deleteComment } from '../../actions/postActions'
 
 class CommentItem extends Component {
@@ -24,9 +25,9 @@ class CommentItem extends Component {
             <div className="comment-item">
                 <p>
                     <span className="comment-name">
-                        <a target="blank" href={`//localhost:3000/user/${username}`}>
+                        <Link target="blank" to={`/user/${username}`}>
                             {name}
-                        </a >
+                        </Link >
                         {" "}
                     </span>
                     {text}
