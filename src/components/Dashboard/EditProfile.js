@@ -59,9 +59,6 @@ class EditProfile extends Component {
     }
 
     componentWillUnmount() {
-        if (this.props.profileRequiredErrors.length > 0) {
-            this.props.clearProfileRequiredErrors()
-        }
         if (this.props.profileOptionalInfoErrors.length > 0) {
             this.props.clearProfileOptionalInfoErrors()
         }
@@ -221,11 +218,6 @@ class EditProfile extends Component {
     }
 
     render() {
-        const usernameError = this.props.profileRequiredErrors.filter(cur => cur.profile_required_error.includes('username'))
-        const genderError = this.props.profileRequiredErrors.filter(cur => cur.profile_required_error.includes('gender'))
-        const birthdateError = this.props.profileRequiredErrors.filter(cur => cur.profile_required_error.includes('birth_date'))
-        const currentlocationError = this.props.profileRequiredErrors.filter(cur => cur.profile_required_error.includes('current_location'))
-
         const { profile, loading } = this.props.profile
         const { current_location } = profile
 
@@ -317,11 +309,10 @@ class EditProfile extends Component {
                                             name='username'
                                             value={this.state.username}
                                             placeholder='Username'
-                                            className={`w-100 profile-text-input ${usernameError.length > 0 ? ('invalid-input') : null} `}
+                                            className='w-100 profile-text-input'
                                             onChange={this.onChange}
                                         />
                                     </div>
-                                    {usernameError.length > 0 ? (<h6 className="text-danger small-font">{usernameError[0].profile_required_error}</h6>) : null}
                                     {<p className="small-font">https://www.travelogue/com/{this.state.username}</p>}
                                     <div>
                                         <div className="form-icon mb-3">
@@ -329,7 +320,7 @@ class EditProfile extends Component {
                                             <span className="form-icon fas fa-venus-mars"></span>
                                             <select
                                                 id='gender'
-                                                className={`w-100 profile-select-input ${genderError.length > 0 ? ('invalid-input') : null}`}
+                                                className='w-100 profile-select-input'
                                                 onChange={this.onChange}
                                                 name='gender'
                                                 value={this.state.gender}
@@ -349,11 +340,10 @@ class EditProfile extends Component {
                                                 placeholder="YYYY-MM-DD"
                                                 name='birth_date'
                                                 value={this.state.birth_date}
-                                                className={`w-100 profile-text-input ${birthdateError.length > 0 ? ('invalid-input') : null}`}
+                                                className='w-100 profile-text-input'
                                                 onChange={this.onChange}
                                             />
                                         </div>
-                                        {birthdateError.length > 0 ? (<h6 className="text-danger small-font">{`Make sure to follow the format: 'YYYY-MM-DD' `}</h6>) : null}
                                     </div>
                                     <div className="form-icon mb-3">
                                         <span className="form-icon fas fa-location-arrow"></span>
@@ -364,7 +354,7 @@ class EditProfile extends Component {
                                             name='current_location'
                                             value={this.state.current_location}
                                             placeholder='Current location'
-                                            className={`w-100 profile-text-input ${currentlocationError.length > 0 ? ('invalid-input') : null}`}
+                                            className='w-100 profile-text-input'
                                             onChange={this.onChange}
                                         />
                                     </div>
@@ -638,7 +628,6 @@ class EditProfile extends Component {
 const mapStateToProps = state => ({
     profile: state.profile,
     auth: state.auth,
-    profileRequiredErrors: state.errors.profileRequiredErrors,
     profileOptionalInfoErrors: state.errors.profileOptionalInfoErrors,
     learningLanguageErrors: state.errors.learningLanguageErrors
 })

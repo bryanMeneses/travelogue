@@ -7,7 +7,7 @@ export const createNewProfile = (profileData, history) => (dispatch, getState) =
         .then(res => {
 
             // clear errors if any 
-            if (getState().errors.profileRequiredErrors.length > 0) {
+            if (Object.keys(getState().errors.profileRequiredErrors).length > 0) {
                 dispatch(clearProfileRequiredErrors())
             }
             dispatch({
@@ -19,10 +19,17 @@ export const createNewProfile = (profileData, history) => (dispatch, getState) =
             }
         })
         .catch(err => {
-            dispatch({
-                type: GET_PROFILE_REQUIRED_ERRORS,
-                payload: err.response.data
-            })
+            if (err.response && err.response.data) {
+                dispatch({
+                    type: GET_PROFILE_REQUIRED_ERRORS,
+                    payload: err.response.data
+                })
+            } else {
+                dispatch({
+                    type: GET_PROFILE_REQUIRED_ERRORS,
+                    payload: err.message
+                })
+            }
         })
 }
 

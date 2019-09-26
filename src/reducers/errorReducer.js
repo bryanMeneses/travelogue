@@ -1,9 +1,9 @@
 import { GET_SIGNIN_ERRORS, GET_REGISTER_ERRORS, GET_PROFILE_REQUIRED_ERRORS, GET_PROFILE_OPTIONAL_INFO_ERRORS, GET_TRAVEL_PLAN_ERRORS, GET_LEARNING_LANGUAGE_ERRORS, GET_CREATE_POST_ERROR } from '../actions/types'
 
 const initialState = {
-    registerErrors: [],
-    signinErrors: [],
-    profileRequiredErrors: [],
+    registerErrors: {},
+    signinErrors: {},
+    profileRequiredErrors: {},
     profileOptionalInfoErrors: [],
     travelPlanErrors: [],
     learningLanguageErrors: [],

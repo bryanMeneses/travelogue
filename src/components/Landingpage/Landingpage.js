@@ -16,10 +16,16 @@ class Landingpage extends Component {
             email: '',
             password: '',
             confirmpw: '',
+            errors: {}
+        }
+    }
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.errors.register_error) {
+            this.setState({ errors: nextProps.errors })
         }
     }
     componentWillUnmount() {
-        if (this.props.errors.length > 0) {
+        if (Object.keys(this.props.errors).length > 0) {
             this.props.clearRegisterErrors()
         }
     }
@@ -50,12 +56,8 @@ class Landingpage extends Component {
 
 
     render() {
-        const userAlreadyExists = this.props.errors.filter(cur => cur.input_error.includes('user already exists'))
-        const passwordsDontMatch = this.props.errors.filter(cur => cur.input_error.includes('Passwords do not match'))
-        const errorIncludesName = this.props.errors.filter(cur => cur.input_error.includes('name'))
-        const errorIncludesEmail = this.props.errors.filter(cur => cur.input_error.includes('email'))
-        const errorIncludesPassword = this.props.errors.filter(cur => cur.input_error.includes('password'))
-        const errorIncludesConfirmpw = this.props.errors.filter(cur => cur.input_error.includes('confirmpw'))
+        const { errors } = this.state
+
 
 
         return (
@@ -72,13 +74,10 @@ class Landingpage extends Component {
                             <Card.Body>
                                 <h3 className="text-center font-weight-bold mb-4">Sign up for free today!</h3>
                                 <form onSubmit={this.onSubmit}>
-                                    {/* If error for "user already exists" occurs, return an h6 heading displaying the error message */}
-                                    {userAlreadyExists.length > 0 ? (<h6 className="text-danger text-center small-font">{userAlreadyExists[0].input_error}</h6>) : null}
-                                    {/* If error for passwords not matching occurs, return an h6 heading displaying the error message. */}
-                                    {passwordsDontMatch.length > 0 ? (<h6 className="text-danger text-center small-font">{passwordsDontMatch[0].input_error}</h6>) : null}
-                                    {/*  className is in template strings to allow conditional ternary operators to return 'invalid-input' class if there is an error. This will highlight the inputs red. */}
+                                    {/* If error return an h6 heading displaying the error message */}
+                                    {errors ? (<h6 className="text-danger text-center small-font">{errors.register_error}</h6>) : null}
                                     <TextInputPlusLabel
-                                        className={`w-100 mb-3 custom-text-input ${errorIncludesName.length > 0 ? ('invalid-input') : null}`}
+                                        className='w-100 mb-3 custom-text-input'
                                         id='name'
                                         type='text'
                                         name='name'
@@ -87,10 +86,8 @@ class Landingpage extends Component {
                                         onChange={this.onChange}
                                         placeholder="Name"
                                     />
-                                    {/* If errors, display under the inputs */}
-                                    {errorIncludesName.length > 0 ? (<h6 className="text-danger small-font">*{errorIncludesName[0].input_error.replace('"name"', '')}</h6>) : null}
                                     <TextInputPlusLabel
-                                        className={`w-100 mb-3 custom-text-input ${errorIncludesEmail.length > 0 ? ('invalid-input') : null}`}
+                                        className='w-100 mb-3 custom-text-input'
                                         id='email'
                                         type='email'
                                         name='email'
@@ -99,9 +96,8 @@ class Landingpage extends Component {
                                         onChange={this.onChange}
                                         placeholder="Email"
                                     />
-                                    {errorIncludesEmail.length > 0 ? (<h6 className="text-danger small-font">*{errorIncludesEmail[0].input_error.replace('"email"', '')}</h6>) : null}
                                     <TextInputPlusLabel
-                                        className={`w-100 mb-3 custom-text-input ${errorIncludesPassword.length > 0 ? ('invalid-input') : null}`}
+                                        className='w-100 mb-3 custom-text-input'
                                         id='password'
                                         type='password'
                                         name='password'
@@ -110,9 +106,8 @@ class Landingpage extends Component {
                                         onChange={this.onChange}
                                         placeholder="Password"
                                     />
-                                    {errorIncludesPassword.length > 0 ? (<h6 className="text-danger small-font">*{errorIncludesPassword[0].input_error.replace('"password"', '')}</h6>) : null}
                                     <TextInputPlusLabel
-                                        className={`w-100 mb-3 custom-text-input ${errorIncludesConfirmpw.length > 0 ? ('invalid-input') : null}`}
+                                        className='w-100 mb-3 custom-text-input'
                                         id='confirmpw'
                                         type='password'
                                         name='confirmpw'
@@ -121,7 +116,6 @@ class Landingpage extends Component {
                                         onChange={this.onChange}
                                         placeholder="Confirm password"
                                     />
-                                    {errorIncludesConfirmpw.length > 0 ? (<h6 className="text-danger small-font">*{errorIncludesConfirmpw[0].input_error.replace('"confirmpw"', '')}</h6>) : null}
                                     <span><Link to="/signin">Already joined?</Link></span>
                                     <button
                                         className="mt-2 w-50 d-block btn-custom float-right"

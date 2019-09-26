@@ -10,11 +10,18 @@ class Signin extends Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            errors: {}
+        }
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (nextProps.errors.signin_error) {
+            this.setState({ errors: nextProps.errors })
         }
     }
     componentWillUnmount() {
-        if (this.props.errors.length > 0) {
+        if (Object.keys(this.props.errors).length > 0) {
             this.props.clearSigninErrors()
         }
     }
@@ -42,9 +49,7 @@ class Signin extends Component {
     }
 
     render() {
-        const userDoesntExist = this.props.errors.filter(cur => cur.input_error.includes('user doesn\'t exist'))
-        const errorIncludesEmail = this.props.errors.filter(cur => cur.input_error.includes('email'))
-        const errorIncludesPassword = this.props.errors.filter(cur => cur.input_error.includes('password'))
+        const { errors } = this.state
 
         return (
             <div className="common-form-container animated fadeIn">
@@ -52,12 +57,12 @@ class Signin extends Component {
                     <Col className="mt-5" xs="12" md="6">
                         <h3 className="text-center font-weight-bold mb-4">Login</h3>
                         <form onSubmit={this.onSubmit}>
-                            {/* If error for "user doesnt exist" occurs, return an h6 heading displaying the error message */}
-                            {userDoesntExist.length > 0 ? (<h6 className="text-danger text-center small-font">{userDoesntExist[0].input_error}</h6>) : null}
+                            {/* If error return an h6 heading displaying the error message */}
+                            {errors ? (<h6 className="text-danger text-center small-font">{errors.signin_error}</h6>) : null}
                             <div className="form-icon mb-3">
                                 <span className="form-icon far fa-envelope"></span>
                                 <TextInputPlusLabel
-                                    className={`w-100 text-white profile-text-input ${errorIncludesEmail.length > 0 ? ('invalid-input') : null}`}
+                                    className='w-100 text-white profile-text-input'
                                     id="email"
                                     type="email"
                                     placeholder="Email"
@@ -67,11 +72,10 @@ class Signin extends Component {
                                     label='Email:'
                                 />
                             </div>
-                            {errorIncludesEmail.length > 0 ? (<h6 className="text-danger small-font">*{errorIncludesEmail[0].input_error.replace('"email"', '')}</h6>) : null}
                             <div className="form-icon mb-3">
                                 <span className="form-icon fas fa-lock"></span>
                                 <TextInputPlusLabel
-                                    className={`w-100 mb-3 text-white profile-text-input ${errorIncludesPassword.length > 0 ? ('invalid-input') : null}`}
+                                    className='w-100 mb-3 text-white profile-text-input'
                                     id="password"
                                     type="password"
                                     placeholder="Password"
@@ -81,7 +85,6 @@ class Signin extends Component {
                                     label='Password:'
                                 />
                             </div>
-                            {errorIncludesPassword.length > 0 ? (<h6 className="text-danger small-font">*{errorIncludesPassword[0].input_error.replace('"password"', '')}</h6>) : null}
                             <div className="w-75 m-auto">
                                 <button
                                     className="mt-2 w-100 btn-custom"

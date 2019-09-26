@@ -13,6 +13,7 @@ class CreateProfileRequired extends Component {
             gender: '',
             birth_date: '',
             current_location: '',
+            errors: {}
         }
     }
 
@@ -24,8 +25,10 @@ class CreateProfileRequired extends Component {
         if (nextProps.profile.hasProfile) {
             this.props.history.push('/dashboard')
         }
+        if (nextProps.errors.create_profile_error) {
+            this.setState({ errors: nextProps.errors })
+        }
     }
-
     onSubmit = e => {
         e.preventDefault();
 
@@ -46,12 +49,8 @@ class CreateProfileRequired extends Component {
     }
 
     render() {
-        const usernameError = this.props.errors.filter(cur => cur.profile_required_error.includes('username'))
-        const genderError = this.props.errors.filter(cur => cur.profile_required_error.includes('gender'))
-        const birthdateError = this.props.errors.filter(cur => cur.profile_required_error.includes('birth_date'))
-        const currentlocationError = this.props.errors.filter(cur => cur.profile_required_error.includes('current_location'))
-
         let { name } = this.props.auth.user
+        const { errors } = this.state
 
         // This returns the user.name with capital letters as expected
         name = name.split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1).toLowerCase()).join(' ')
@@ -65,6 +64,7 @@ class CreateProfileRequired extends Component {
                         <p>First tell us a few things about yourself...</p>
                         <hr className="hr-form" />
                         <form onSubmit={this.onSubmit}>
+                            {errors ? (<h6 className="text-danger text-center small-font">{errors.create_profile_error}</h6>) : null}
                             <div className="form-icon w-75 mb-3">
                                 <span className="form-icon fas fa-user"></span>
                                 <TextInputPlusLabel
@@ -74,11 +74,11 @@ class CreateProfileRequired extends Component {
                                     name='username'
                                     value={this.state.username}
                                     placeholder='Username'
-                                    className={`w-100 text-white profile-text-input ${usernameError.length > 0 ? ('invalid-input') : null} `}
+                                    className='w-100 text-white profile-text-input'
                                     onChange={this.onChange}
                                 />
                             </div>
-                            {usernameError.length > 0 ? (<h6 className="text-danger small-font">{usernameError[0].profile_required_error}</h6>) : null}
+
                             {<p className="small-font">https://www.travelogue/com/{this.state.username}</p>}
                             <div>
                                 <div className="form-icon w-75 mb-3">
@@ -86,7 +86,7 @@ class CreateProfileRequired extends Component {
                                     <span className="form-icon fas fa-venus-mars"></span>
                                     <select
                                         id='gender'
-                                        className={`w-100 text-white profile-select-input ${genderError.length > 0 ? ('invalid-input') : null}`}
+                                        className='w-100 text-white profile-select-input'
                                         onChange={this.onChange}
                                         name='gender'
                                     >
@@ -105,11 +105,10 @@ class CreateProfileRequired extends Component {
                                         placeholder="YYYY-MM-DD"
                                         name='birth_date'
                                         value={this.state.birth_date}
-                                        className={`w-100 text-white profile-text-input ${birthdateError.length > 0 ? ('invalid-input') : null}`}
+                                        className='w-100 text-white profile-text-input'
                                         onChange={this.onChange}
                                     />
                                 </div>
-                                {birthdateError.length > 0 ? (<h6 className="text-danger small-font">{`Make sure to follow the format: 'YYYY-MM-DD' `}</h6>) : null}
                             </div>
                             <div className="form-icon w-75 mb-3">
                                 <span className="form-icon fas fa-location-arrow"></span>
@@ -120,7 +119,7 @@ class CreateProfileRequired extends Component {
                                     name='current_location'
                                     value={this.state.current_location}
                                     placeholder='Current location'
-                                    className={`w-100 text-white profile-text-input ${currentlocationError.length > 0 ? ('invalid-input') : null}`}
+                                    className='w-100 text-white profile-text-input'
                                     onChange={this.onChange}
                                 />
                             </div>

@@ -14,10 +14,17 @@ export const registerUser = (userData, history) => (dispatch, getState) => {
             history.push('/signin')
         })
         .catch(err => {
-            dispatch({
-                type: GET_REGISTER_ERRORS,
-                payload: err.response.data
-            })
+            if (err.response && err.response.data) {
+                dispatch({
+                    type: GET_REGISTER_ERRORS,
+                    payload: err.response.data
+                })
+            } else {
+                dispatch({
+                    type: GET_REGISTER_ERRORS,
+                    payload: err.message
+                })
+            }
         })
 }
 
@@ -43,11 +50,19 @@ export const loginUser = (userData, history) => (dispatch, getState) => {
             history.push('/dashboard')
         })
         .catch(err => {
-            console.log(err.message)
-            dispatch({
-                type: GET_SIGNIN_ERRORS,
-                payload: err.response.data
-            })
+
+            if (err.response && err.response.data) {
+                dispatch({
+                    type: GET_SIGNIN_ERRORS,
+                    payload: err.response.data
+                })
+            } else {
+                dispatch({
+                    type: GET_SIGNIN_ERRORS,
+                    payload: err.message
+                })
+            }
+
 
         })
 }
