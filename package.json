@@ -2,7 +2,6 @@
   "name": "travelogue",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://travelogue-api.herokuapp.com",
   "dependencies": {
     "age-calculator": "^1.0.0",
     "axios": "^0.19.0",
