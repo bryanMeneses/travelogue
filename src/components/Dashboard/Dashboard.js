@@ -252,7 +252,9 @@ class Dashboard extends Component {
                                         </div>
                                         <div className="mb-3">
                                             <i className="fas fa-book-open"></i>{" "}
-                                            <p className="d-inline">Is learning {learning_languages.map(cur => `${cur.language.charAt(0).toUpperCase() + cur.language.substring(1)} (${cur.level})`).join(', ')}.</p>
+                                            <p className="d-inline">
+                                                {profile.learning_languages && profile.learning_languages.length > 0 ?
+                                                    (`Is learning ${profile.learning_languages.map(cur => `${cur.language.charAt(0).toUpperCase() + cur.language.substring(1)} (${cur.level})`).join(', ')}`) : 'This user has not yet added languages they are learning'}.</p>
                                         </div>
                                         <div className="mb-3">
                                             <i className="fas fa-thumbs-up"></i>{" "}
