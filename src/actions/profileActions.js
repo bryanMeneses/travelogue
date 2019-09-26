@@ -3,7 +3,7 @@ import { SET_CURRENT_PROFILE, GET_PROFILE_REQUIRED_ERRORS, PROFILE_LOADING, GET_
 import { logoutUser } from './authActions';
 
 export const createNewProfile = (profileData, history) => (dispatch, getState) => {
-    axios.post('/api/profile/required', profileData)
+    axios.post('https://travelogue-api.herokuapp.com/api/profile/required', profileData)
         .then(res => {
 
             // clear errors if any 
@@ -27,7 +27,7 @@ export const createNewProfile = (profileData, history) => (dispatch, getState) =
 }
 
 export const submitOptionalInfo = (info) => (dispatch, getState) => {
-    axios.post('/api/profile/info', info)
+    axios.post('https://travelogue-api.herokuapp.com/api/profile/info', info)
         .then(res => {
 
             //  clear errors if any
@@ -48,7 +48,7 @@ export const submitOptionalInfo = (info) => (dispatch, getState) => {
 }
 
 export const createTravelPlan = (travelPlan) => dispatch => {
-    axios.post('/api/profile/info/travel_plans', travelPlan)
+    axios.post('https://travelogue-api.herokuapp.com/api/profile/info/travel_plans', travelPlan)
         .then(res => dispatch({
             type: SET_CURRENT_PROFILE,
             payload: res.data
@@ -60,7 +60,7 @@ export const createTravelPlan = (travelPlan) => dispatch => {
 }
 
 export const editTravelPlan = (travelPlan, id) => (dispatch, getState) => {
-    axios.put(`/api/profile/info/travel_plans/${id}`, travelPlan)
+    axios.put(`https://travelogue-api.herokuapp.com/api/profile/info/travel_plans/${id}`, travelPlan)
         .then(res => {
             //clear errors if any 
             if (getState().errors.travelPlanErrors.length > 0) {
@@ -78,7 +78,7 @@ export const editTravelPlan = (travelPlan, id) => (dispatch, getState) => {
 }
 
 export const deleteTravelPlan = _id => dispatch => {
-    axios.delete(`/api/profile/info/travel_plans/${_id}`)
+    axios.delete(`https://travelogue-api.herokuapp.com/api/profile/info/travel_plans/${_id}`)
         .then(res => dispatch({
             type: SET_CURRENT_PROFILE,
             payload: res.data
@@ -87,7 +87,7 @@ export const deleteTravelPlan = _id => dispatch => {
 }
 
 export const addLearningLanguage = language => (dispatch, getState) => {
-    axios.post('/api/profile/info/learning_languages', language)
+    axios.post('https://travelogue-api.herokuapp.com/api/profile/info/learning_languages', language)
         .then(res => {
 
             // clear errors if any
@@ -105,7 +105,7 @@ export const addLearningLanguage = language => (dispatch, getState) => {
         }))
 }
 export const deleteLearningLanguage = _id => dispatch => {
-    axios.delete(`/api/profile/info/learning_languages/${_id}`)
+    axios.delete(`https://travelogue-api.herokuapp.com/api/profile/info/learning_languages/${_id}`)
         .then(res => dispatch({
             type: SET_CURRENT_PROFILE,
             payload: res.data
@@ -115,7 +115,7 @@ export const deleteLearningLanguage = _id => dispatch => {
 
 export const getCurrentProfile = () => dispatch => {
     dispatch(setProfileLoading())
-    axios.get('/api/profile')
+    axios.get('https://travelogue-api.herokuapp.com/api/profile')
         .then(res => dispatch(setCurrentProfile(res.data)))
         .catch(err => {
             dispatch(setCurrentProfile({}))
@@ -123,7 +123,7 @@ export const getCurrentProfile = () => dispatch => {
 }
 export const getProfileByUsername = username => dispatch => {
     dispatch(setProfileLoading())
-    axios.get(`/api/profile/username/${username}`)
+    axios.get(`https://travelogue-api.herokuapp.com/api/profile/username/${username}`)
         .then(res => {
             dispatch(setCurrentProfile(res.data))
         })
@@ -134,7 +134,7 @@ export const getProfileByUsername = username => dispatch => {
 
 export const deleteAccount = history => dispatch => {
     if (!window.confirm('Are you sure? All your information will be permanently deleted.')) return
-    axios.delete('/api/profile/')
+    axios.delete('https://travelogue-api.herokuapp.com/api/profile/')
         .then(res => {
             dispatch(logoutUser(history))
         })

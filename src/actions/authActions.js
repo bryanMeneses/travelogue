@@ -3,10 +3,9 @@ import { GET_REGISTER_ERRORS, GET_SIGNIN_ERRORS, SET_CURRENT_USER } from './type
 import setTokenToAuthHeader from '../utilities/setTokenToAuthHeader';
 import jwt_decode from 'jwt-decode'
 import { setCurrentProfile } from './profileActions';
-// import { setProfileLoading } from './profileActions';
 
 export const registerUser = (userData, history) => (dispatch, getState) => {
-    axios.post('/api/users/register', userData)
+    axios.post('https://travelogue-api.herokuapp.com/api/users/register', userData)
         .then(res => {
             // Remove errors if any
             if (getState().errors.registerErrors.length > 0) {
@@ -23,7 +22,7 @@ export const registerUser = (userData, history) => (dispatch, getState) => {
 }
 
 export const loginUser = (userData, history) => (dispatch, getState) => {
-    axios.post('/api/users/login', userData)
+    axios.post('https://travelogue-api.herokuapp.com/api/users/login', userData)
         .then(res => {
             // Remove errors if any
             if (getState().errors.signinErrors.length > 0) {
