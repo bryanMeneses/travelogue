@@ -24,6 +24,7 @@ class Header extends Component {
     logoutUser = e => {
         this.props.logoutUser(this.props.history)
     }
+
     render() {
         let links = this.props.auth.isAuthenticated ?
             (<React.Fragment>
@@ -39,7 +40,7 @@ class Header extends Component {
             )
         return (
             <div>
-                <Navbar collapseOnSelect fixed='top' expand="lg" className={`${this.state.changeNavbarColor ? ('transparent-navbar') : null}`}
+                <Navbar collapseOnSelect variant="dark" fixed='top' expand="lg" className={`${this.state.changeNavbarColor ? ('transparent-navbar') : null}`}
                 >
                     <Link className="custom-link" to="/">TraveLogue</Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

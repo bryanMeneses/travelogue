@@ -926,7 +926,9 @@ button.create-post-button:active {
 .lds-facebook {
     display: inline-block;
     position: absolute;
-    left: 50%;
+    margin: 0 auto 0 auto;
+    left: 5%;
+    right: 5%;
     top: 350px;
     width: 64px;
     height: 64px;
