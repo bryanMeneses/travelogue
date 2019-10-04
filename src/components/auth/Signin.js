@@ -51,6 +51,21 @@ class Signin extends Component {
     render() {
         const { errors } = this.state
 
+        const { signinLoading } = this.props.auth;
+
+        const signinMessage = signinLoading ?
+            (
+                <React.Fragment>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    {" "}Loading...
+                </React.Fragment>
+            ) :
+            (
+                <React.Fragment>
+                    Sign In
+                </React.Fragment>
+            )
+
         return (
             <div className="common-form-container animated fadeIn">
                 <Row className="justify-content-center text-white">
@@ -89,7 +104,9 @@ class Signin extends Component {
                                 <button
                                     className="mt-2 w-100 btn-custom"
                                     type="submit"
-                                >Sign In</button>
+                                >
+                                    {signinMessage}
+                                </button>
                             </div>
                         </form>
                     </Col>

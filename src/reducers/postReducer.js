@@ -1,9 +1,10 @@
-import { CREATE_POST, GET_POSTS, DELETE_POST, POSTS_LOADING } from "../actions/types"
+import { CREATE_POST, GET_POSTS, DELETE_POST, POSTS_LOADING, SET_CREATE_POST_LOADING } from "../actions/types"
 
 
 const initialState = {
     posts: [],
-    loading: false
+    loading: false,
+    createPostLoading: false
 }
 
 export default function (state = initialState, action) {
@@ -13,6 +14,11 @@ export default function (state = initialState, action) {
                 ...state,
                 loading: true
             };
+        case SET_CREATE_POST_LOADING:
+            return {
+                ...state,
+                createPostLoading: action.payload
+            }
         case GET_POSTS:
             return {
                 ...state,

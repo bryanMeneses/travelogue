@@ -1,12 +1,14 @@
 import axios from 'axios'
-import { GET_REGISTER_ERRORS, GET_SIGNIN_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_REGISTER_ERRORS, GET_SIGNIN_ERRORS, SET_CURRENT_USER, SET_REGISTER_USER_LOADING, SET_SIGNIN_LOADING } from './types';
 import setTokenToAuthHeader from '../utilities/setTokenToAuthHeader';
 import jwt_decode from 'jwt-decode'
 import { setCurrentProfile } from './profileActions';
 
 export const registerUser = (userData, history) => (dispatch, getState) => {
+    dispatch(setRegisterUserLoading(true))
     axios.post('https://travelogue-api.herokuapp.com/api/users/register', userData)
         .then(res => {
+            dispatch(setRegisterUserLoading(false))
             // Remove errors if any
             if (getState().errors.registerErrors.length > 0) {
                 dispatch(clearRegisterErrors())
@@ -14,6 +16,7 @@ export const registerUser = (userData, history) => (dispatch, getState) => {
             history.push('/signin')
         })
         .catch(err => {
+            dispatch(setRegisterUserLoading(false))
             if (err.response && err.response.data) {
                 dispatch({
                     type: GET_REGISTER_ERRORS,
@@ -29,8 +32,10 @@ export const registerUser = (userData, history) => (dispatch, getState) => {
 }
 
 export const loginUser = (userData, history) => (dispatch, getState) => {
+    dispatch(setSigninLoading(true));
     axios.post('https://travelogue-api.herokuapp.com/api/users/login', userData)
         .then(res => {
+            dispatch(setSigninLoading(false))
             // Remove errors if any
             if (getState().errors.signinErrors.length > 0) {
                 dispatch(clearSigninErrors())
@@ -50,7 +55,7 @@ export const loginUser = (userData, history) => (dispatch, getState) => {
             history.push('/dashboard')
         })
         .catch(err => {
-
+            dispatch(setSigninLoading(false))
             if (err.response && err.response.data) {
                 dispatch({
                     type: GET_SIGNIN_ERRORS,
@@ -99,5 +104,18 @@ export const clearSigninErrors = () => {
     return {
         type: GET_SIGNIN_ERRORS,
         payload: []
+    }
+}
+
+export const setRegisterUserLoading = isLoading => {
+    return {
+        type: SET_REGISTER_USER_LOADING,
+        payload: isLoading
+    }
+}
+export const setSigninLoading = isLoading => {
+    return {
+        type: SET_SIGNIN_LOADING,
+        payload: isLoading
     }
 }

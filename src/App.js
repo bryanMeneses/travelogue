@@ -21,6 +21,7 @@ import PrivateRoute from './components/auth/PrivateRoute';
 import NotFound from './components/NotFound/NotFound';
 import PostFeed from './components/Posts/PostFeed';
 import About from './components/About/About';
+import Account from './components/Dashboard/Account';
 
 // Check if token in localStorage is active. If yes, persist decodedToken info (i.e., user) on page refresh
 if (localStorage.jwtToken) {
@@ -55,6 +56,7 @@ function App() {
               <Route exact path="/signin" component={Signin} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+              <PrivateRoute exact path="/edit-account" component={Account} />
               <PrivateRoute exact path="/create-profile" component={CreateProfileRequired} />
               <PrivateRoute exact path="/user/:username" component={Profile} />
               <PrivateRoute exact path="/feed" component={PostFeed} />

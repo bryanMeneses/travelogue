@@ -341,6 +341,16 @@ button.edit-profile-info-button {
     width: 100%;
 }
 
+button.add-language-button {
+    color: #ffffff;
+    padding: 0.5rem;
+    background-color: rgb(91, 210, 160);
+    border-radius: 5px;
+    transition: all 150ms ease-in;
+    margin: 5px;
+    width: 33%;
+}
+
 /* remove border-radius from selects */
 select:not([multiple]) {
     -webkit-appearance: none;
@@ -467,7 +477,7 @@ div.edit-delete-travel-plan-icons i {
 
 .edit-profile-container .primary-container {
     width: 95%;
-    max-width: 768px;
+    max-width: 1200px;
     margin: auto;
 
 }
@@ -485,7 +495,7 @@ div.edit-delete-travel-plan-icons i {
 
 @media (min-width: 992px) {
 
-    .edit-profile-container {
+    /* .edit-profile-container {
         width: 96%;
         display: flex;
         justify-content: center
@@ -493,15 +503,13 @@ div.edit-delete-travel-plan-icons i {
     .edit-profile-container .primary-container {
         margin-left: 1%;
         margin-top: 0;
-        width: 62%;
-        max-width: 883px;
     }    
     .edit-profile-container .secondary-container {
         width: 34%;
         max-width: 421px;
         margin-right: 0;
         margin-top: 0;
-    }
+    } */
     .dashboard-container, div.posts-feed-container {
         width: 96%;
     }
@@ -635,6 +643,15 @@ i.plus-sign-travel-plan {
     float: right;
     color: green;
 }
+.language-modal-button {
+    background-color: rgb(237, 102, 100);
+    border-radius: 50%;
+    font-size: 1.3rem;
+    padding: .45rem;
+    margin-left: 1rem;
+    color: white;
+    cursor: pointer;
+}
 
 div.learning-language-holder {
     background-color: #DABF81;
@@ -668,7 +685,8 @@ button.delete-account-button:hover {
     background-color: #9a0b09;
 }
 
-button.cancel-delete-account-button {
+button.cancel-delete-account-button,
+.cancel-add-language-button {
     color: #ffffff;
     padding: 0.5rem;
     background-color: #aeaeae;
@@ -678,11 +696,13 @@ button.cancel-delete-account-button {
     margin: 5px;
     transition: all 150ms ease-in
 }
-button.cancel-delete-account-button:hover {
+button.cancel-delete-account-button:hover,
+.cancel-add-language-button:hover {
     background-color: #949494;
 }
 
-div.delete-account-modal {
+div.delete-account-modal,
+div.add-language-modal {
     position: relative;
     top: 35%;
     top: calc(40% - 130px);
@@ -693,7 +713,12 @@ div.delete-account-modal {
     min-width: 425px;
     background-color: #fff;
 }
-div.delete-account-modal header {
+div.add-language-modal .main {
+    background-color:rgb(241, 239, 234);
+    border-bottom: lightgray 0.5px solid;
+}
+div.delete-account-modal header,
+div.add-language-modal header  {
     border-bottom: lightgray 0.5px solid
 }
 div.delete-account-modal p {

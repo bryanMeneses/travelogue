@@ -67,7 +67,7 @@ class AddTravelPlansModal extends Component {
                     <div
                         className="p-3 add-travel-modal-2nd-box">
                         <p>Your travel plans are shown from newest first.</p>
-                        <p>They will also be posted to the main feed for everyone to see.</p>
+                        <p>Tell everyone the exciting places you will go to!</p>
                     </div>
                     <div>
                         <form onSubmit={this.onSubmit}>

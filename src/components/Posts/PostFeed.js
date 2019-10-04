@@ -88,13 +88,26 @@ class PostFeed extends Component {
 
     render() {
         const { profile, loading } = this.props.profile
-        const { posts } = this.props.post
+        const { posts, createPostLoading } = this.props.post
 
         let { name } = this.props.auth.user;
         name = name.split(' ').map(word => word.charAt(0).toUpperCase() + word.substring(1).toLowerCase())
         name = name[0]
 
         let hideCardText = this.state.hideCards ? "Show" : "Hide"
+
+        const createPostMsg = createPostLoading ?
+            (
+                <React.Fragment>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    {" "}Loading...
+                </React.Fragment>
+            ) :
+            (
+                <React.Fragment>
+                    Post
+                </React.Fragment>
+            )
 
         if (profile === null || loading) {
             return <LoadingSpinner />
@@ -131,7 +144,7 @@ class PostFeed extends Component {
                                     name='text'
                                 ></textarea>
                                 <div style={{ width: '40%', marginLeft: 'auto', maxWidth: '215px' }}>
-                                    <button className="w-100 create-post-button">Post</button>
+                                    <button className="w-100 create-post-button">{createPostMsg}</button>
                                 </div>
                             </form>
                         </section>

@@ -30,6 +30,7 @@ class Header extends Component {
             (<React.Fragment>
                 <Link className="custom-link" to="/feed">Feed</Link>
                 <Link className="custom-link" to="/dashboard">Dashboard</Link>
+                <Link className="custom-link" to="/edit-account">Account</Link>
                 <span className="custom-link" style={{ cursor: 'pointer' }} onClick={this.logoutUser}>Log Out</span>
             </React.Fragment>)
             : (
@@ -40,13 +41,13 @@ class Header extends Component {
             )
         return (
             <div>
-                <Navbar collapseOnSelect variant="dark" fixed='top' expand="lg" className={`${this.state.changeNavbarColor ? ('transparent-navbar') : null}`}
+                <Navbar variant="dark" fixed='top' expand="lg" className={`${this.state.changeNavbarColor ? ('transparent-navbar') : null}`}
                 >
                     <Link className="custom-link" to="/">TraveLogue</Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
+                        <Link className="custom-link" to="/about">About</Link>
                         <Nav className="ml-auto">
-                            <Link className="custom-link" to="/about">About</Link>
                             {links}
                         </Nav>
                     </Navbar.Collapse>

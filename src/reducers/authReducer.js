@@ -1,9 +1,11 @@
-import { SET_CURRENT_USER } from "../actions/types";
+import { SET_CURRENT_USER, SET_REGISTER_USER_LOADING, SET_SIGNIN_LOADING } from "../actions/types";
 import isObjectEmpty from '../utilities/isObjectEmpty'
 
 const initialState = {
     isAuthenticated: false,
-    user: {}
+    user: {},
+    registerUserLoading: false,
+    signinLoading: false
 }
 
 export default function (state = initialState, action) {
@@ -13,6 +15,16 @@ export default function (state = initialState, action) {
                 ...state,
                 isAuthenticated: !isObjectEmpty(action.payload),
                 user: action.payload
+            }
+        case SET_REGISTER_USER_LOADING:
+            return {
+                ...state,
+                registerUserLoading: action.payload
+            }
+        case SET_SIGNIN_LOADING:
+            return {
+                ...state,
+                signinLoading: action.payload
             }
         default:
             return state

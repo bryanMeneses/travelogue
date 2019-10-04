@@ -57,8 +57,20 @@ class Landingpage extends Component {
 
     render() {
         const { errors } = this.state
+        const { registerUserLoading } = this.props.auth;
 
-
+        const registerMessage = registerUserLoading ?
+            (
+                <React.Fragment>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    {" "}Loading...
+                </React.Fragment>
+            ) :
+            (
+                <React.Fragment>
+                    Sign Up!
+                </React.Fragment>
+            )
 
         return (
             <div className="landing_inner animated fadeIn">
@@ -120,7 +132,9 @@ class Landingpage extends Component {
                                     <button
                                         className="mt-2 w-50 d-block btn-custom float-right"
                                         type="submit"
-                                    >Sign Up!</button>
+                                    >
+                                        {registerMessage}
+                                    </button>
                                 </form>
                             </Card.Body>
                         </Card>

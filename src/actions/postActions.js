@@ -1,9 +1,11 @@
 import axios from 'axios'
-import { CREATE_POST, GET_CREATE_POST_ERROR, GET_POSTS, DELETE_POST, POSTS_LOADING } from './types'
+import { CREATE_POST, GET_CREATE_POST_ERROR, GET_POSTS, DELETE_POST, POSTS_LOADING, SET_CREATE_POST_LOADING } from './types'
 
 export const createPost = post => (dispatch, getState) => {
+    dispatch(setCreatePostLoading(true))
     axios.post('https://travelogue-api.herokuapp.com/api/post', post)
         .then(res => {
+            dispatch(setCreatePostLoading(false))
             // clear errors if any using getState()
             if (Object.keys(getState().errors.createPostErrors).length > 0) {
                 dispatch({
@@ -16,16 +18,19 @@ export const createPost = post => (dispatch, getState) => {
                 payload: res.data
             })
         })
-        .catch(err => dispatch({
-            type: GET_CREATE_POST_ERROR,
-            payload: err.response.data
-        }))
+        .catch(err => {
+            dispatch(setCreatePostLoading(false))
+            dispatch({
+                type: GET_CREATE_POST_ERROR,
+                payload: err.response.data
+            })
+        })
 }
 
 export const getPosts = () => dispatch => {
+    dispatch(setPostsLoading())
     axios.get('https://travelogue-api.herokuapp.com/api/post/all')
         .then(res => {
-            dispatch(setPostsLoading())
             dispatch({
                 type: GET_POSTS,
                 payload: res.data
@@ -76,5 +81,12 @@ export const deleteComment = (commentId, postId) => dispatch => {
 export const setPostsLoading = () => {
     return {
         type: POSTS_LOADING
+    }
+}
+
+export const setCreatePostLoading = isLoading => {
+    return {
+        type: SET_CREATE_POST_LOADING,
+        payload: isLoading
     }
 }
