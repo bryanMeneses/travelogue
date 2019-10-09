@@ -77,9 +77,18 @@ div.landing_inner {
 
 .custom-link {
     position: relative;
+    padding: 0 !important;
     font-size: 24px;
+    width: auto;
     color: #fff;
-    padding: 15px;
+}
+.custom-link span {
+    display: block;
+    color: white;
+    width: 100%;
+    text-decoration: none;
+    padding: 20px;
+    cursor: pointer;
 }
 .custom-link::after {
     position: absolute;
@@ -446,7 +455,7 @@ a.edit-profile-link  {
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 10px 5px 10px 10px;
-    background: rgb(248, 248, 248)
+    background: rgb(248, 248, 248);
 }
 
 div.edit-delete-travel-plan-icons {
@@ -582,7 +591,7 @@ div.add-travel-modal {
     height: auto;
     width: 75%;
     max-width: 500px;
-    min-width: 425px;
+    min-width: 355px;
     background-color: #fff;
     border-radius: 10px;
 }

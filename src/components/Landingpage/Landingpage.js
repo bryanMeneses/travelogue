@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col, Row, Card } from 'react-bootstrap'
+import { Col, div, Card } from 'react-bootstrap'
 import { withRouter, Link } from 'react-router-dom'
 import { registerUser, clearRegisterErrors } from '../../actions/authActions';
 import { connect } from 'react-redux'
@@ -74,7 +74,7 @@ class Landingpage extends Component {
 
         return (
             <div className="landing_inner animated fadeIn">
-                <Row className="justify-content-center">
+                <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
                     <Col xs="12" lg="5" className="secondary-box align-self-center text-white mb-4">
                         <h1 style={{ fontSize: '3rem' }} className="mb-4 font-weight-bold">Tired of traveling like a tourist?</h1>
                         <h3 className="mb-4">So are we.</h3>
@@ -139,7 +139,7 @@ class Landingpage extends Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                </Row>
+                </div>
             </div>
         )
     }
